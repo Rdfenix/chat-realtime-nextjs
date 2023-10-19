@@ -1,0 +1,58 @@
+@import "../../styles/abstracts/variables";
+@import "../../styles/components/card";
+@import "../../styles/components/button";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    .login_input {
+        padding: 5px 20px;
+        border-radius: 4px;
+        border: 1px solid $Gray;
+        font-family: $RobotoItalic;
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.login_footer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 40px;
+
+    .button_area,
+    .register_area {
+        display: flex;
+        align-items: center;
+    }
+
+    .button_area {
+        justify-content: center;
+
+        .submit_button {
+            @include button_default;
+            color: $White;
+            font-family: $RobotoBold;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $MidnightBlue;
+            }
+        }
+    }
+
+    .register_area {
+        justify-content: flex-end;
+        a {
+            display: flex;
+            text-decoration: none;
+            gap: 10px;
+            padding: 0 10px;
+            color: $Black;
+        }
+    }
+}

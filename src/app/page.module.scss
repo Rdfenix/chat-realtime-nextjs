@@ -1,0 +1,21 @@
+@import "../app/styles/components/pageDefault";
+@import "../app/styles/components/card";
+@import "../app/styles/abstracts/variables";
+
+.home_section {
+  @include pageDefaultStyle;
+  justify-content: center;
+  align-items: center;
+  background-color: $DodgeBlue;
+  flex-direction: column;
+
+  a {
+    text-decoration: none;
+    color: $White;
+  }
+
+  img {
+    user-select: none;
+    pointer-events: none;
+  }
+}

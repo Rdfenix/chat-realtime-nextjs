@@ -1,0 +1,10 @@
+@import "../abstracts/variables";
+
+@mixin SignInSignUpDefault {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background: $DodgeBlue;
+    justify-content: center;
+    align-items: center;
+}

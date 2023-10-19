@@ -1,0 +1,165 @@
+@import "../../../styles/abstracts/variables";
+
+$widthContent: 78px;
+$widthActiveContent: 140px;
+
+.sidebar {
+    width: $widthContent;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: $DodgeBlue;
+    padding: 6px 14px;
+    transition: all 0.5s ease;
+
+    .logo_content {
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        flex-direction: column;
+
+        span {
+            font-family: $RobotoItalic;
+            font-size: 12px;
+        }
+
+        .logo_image {
+            width: 30px;
+        }
+    }
+
+    .nav_list {
+        margin-top: 20px;
+
+        li {
+            list-style: none;
+            line-height: 50px;
+            position: relative;
+            height: 50px;
+            width: 100%;
+            margin: 0 5px;
+            transition: all 0.4s ease;
+
+            a {
+                text-decoration: none;
+                color: $White;
+                white-space: nowrap;
+                gap: 5px;
+                display: flex;
+                align-items: center;
+                padding: 0 15px;
+
+                .link_name {
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: all 0.5s ease;
+                    font-size: 16px;
+                }
+            }
+            &:hover {
+                background-color: $MidnightBlue;
+                border-radius: 4px;
+            }
+        }
+    }
+
+    .profile_content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        color: $White;
+
+        .profile {
+            position: relative;
+            padding: 10px 6px;
+            height: 90px;
+            background-color: transparent;
+            transition: all 0.4s ease;
+
+            .profile_details {
+                display: flex;
+                align-items: center;
+                pointer-events: none;
+                white-space: nowrap;
+                flex-direction: column;
+                justify-content: center;
+                gap: 10px;
+
+                .user_icon {
+                    width: 30px;
+                    height: 30px;
+                }
+
+                .user_detail {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    font-family: $RobotoItalic;
+
+                    span {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+
+        .logout {
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .logout_button {
+                border: none;
+                background: transparent;
+                padding: 10px;
+                cursor: pointer;
+                transition: all 0.4s ease;
+                border-radius: 4px;
+
+                &:hover {
+                    background: $MidnightBlue;
+                }
+            }
+        }
+    }
+}
+
+.principal_content {
+    position: absolute;
+    height: 100%;
+    width: calc(100% - $widthContent);
+    left: $widthContent;
+    transition: all 0.5s ease;
+}
+
+.active {
+    width: $widthActiveContent;
+    ~ {
+        .principal_content {
+            width: calc(100% - $widthActiveContent);
+            left: $widthActiveContent;
+        }
+    }
+
+    .nav_list {
+        li {
+            a {
+                .link_name {
+                    opacity: 1 !important;
+                    pointer-events: auto !important;
+                }
+            }
+        }
+    }
+}
+
+.active_link {
+    border-radius: 4px;
+    background-color: $MidnightBlue;
+}

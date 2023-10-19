@@ -1,0 +1,41 @@
+@import "../../styles/abstracts/variables";
+@import "../../styles/abstracts/fonts";
+@import "../../styles/components/pageDefault";
+@import "../../styles/components/card";
+
+.home_section {
+    @include pageDefaultStyle;
+    justify-content: center;
+    align-items: center;
+
+    .home_container {
+        @include card_default;
+        width: 315px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        h1 {
+            text-transform: uppercase;
+            font-family: $RobotoBold;
+        }
+
+        .home_content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+
+            span {
+                font-family: $RobotoMediumItalic;
+
+                &:nth-child(3) {
+                    font-family: $RobotoBold;
+                    font-size: 25px;
+                }
+            }
+        }
+    }
+}

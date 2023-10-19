@@ -1,0 +1,59 @@
+@import "../../styles/abstracts/variables";
+@import "../../styles/components/card";
+@import "../../styles/components/button";
+
+.form_register {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+
+    .register_input {
+        padding: 5px 20px;
+        border-radius: 4px;
+        border: 1px solid $Gray;
+        font-family: $RobotoItalic;
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.register_footer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 40px;
+
+    .button_area,
+    .sign_in_area {
+        display: flex;
+        align-items: center;
+    }
+
+    .button_area {
+        justify-content: center;
+
+        .sign_up_button {
+            @include button_default;
+            color: $White;
+            font-family: $RobotoBold;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $MidnightBlue;
+            }
+        }
+    }
+
+    .sign_in_area {
+        justify-content: flex-start;
+        a {
+            display: flex;
+            gap: 10px;
+            padding: 0 10px;
+            text-decoration: none;
+            color: $Black;
+        }
+    }
+}

@@ -1,0 +1,9 @@
+@import "../abstracts/variables";
+
+@mixin button_default {
+    border: none;
+    padding: 1rem;
+    border-radius: 4px;
+    background-color: $SteelBlue;
+    cursor: pointer;
+}

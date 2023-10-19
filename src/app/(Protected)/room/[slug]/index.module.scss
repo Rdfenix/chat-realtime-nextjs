@@ -1,0 +1,152 @@
+@import "../../../styles/abstracts/variables";
+@import "../../../styles/components/pageDefault";
+
+.chat_room_section {
+    @include pageDefaultStyle;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $DodgeBlue;
+
+    .chat_room_header {
+        background-color: $White;
+        width: 100%;
+        height: 90px;
+        display: flex;
+        border-radius: 4px;
+        padding: 10px;
+        gap: 10px;
+        justify-content: flex-start;
+        align-items: center;
+
+        a {
+            text-decoration: none;
+            color: $Black;
+            padding: 10px;
+        }
+    }
+
+    .chat_room_content {
+        width: 100%;
+        background: $White;
+        height: 64%;
+        border-radius: 4px;
+        padding: 10px;
+        overflow: auto;
+        flex-direction: column-reverse;
+        gap: 15px;
+        display: flex;
+        position: relative;
+    }
+    .chat_room_footer {
+        background: $White;
+        width: 100%;
+        height: 15%;
+        padding: 10px;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .chat_input {
+            width: 80%;
+            height: 50px;
+            padding: 10px;
+            font-family: $RobotoMediumItalic;
+            font-size: 15px;
+            border-radius: 4px;
+            border: 1px solid $LightGrey;
+
+            &:focus {
+                border-color: $Gray;
+                outline: none;
+            }
+        }
+
+        .chat_send_message {
+            width: 130px;
+            height: 50px;
+            line-height: 50px;
+            cursor: pointer;
+            background-color: $CornflowerBlue;
+            color: $White;
+            border: none;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-family: $RobotoBold;
+            font-size: 17px;
+
+            &:hover {
+                background-color: $MidnightBlue;
+            }
+        }
+    }
+}
+
+.conversation {
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    word-break: break-all;
+    border-radius: 15px;
+    background-color: $DodgeBlue;
+    color: $White;
+    padding: 15px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-size: 14px;
+    font-family: $RobotoMedium;
+}
+
+.you {
+    &::before {
+        content: "";
+        width: 0px;
+        height: 0px;
+        position: absolute;
+        border-left: 15px solid $DodgeBlue;
+        border-right: 15px solid transparent;
+        border-top: 15px solid $DodgeBlue;
+        border-bottom: 15px solid transparent;
+        right: -16px;
+        top: 0px;
+    }
+}
+
+.they {
+    &::before {
+        content: "";
+        width: 0px;
+        height: 0px;
+        position: absolute;
+        border-left: 15px solid transparent;
+        border-right: 15px solid $DodgeBlue;
+        border-top: 15px solid $DodgeBlue;
+        border-bottom: 15px solid transparent;
+        left: -16px;
+        top: 0px;
+    }
+}
+
+.chat_row_you,
+.chat_row_they {
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+
+    .chat_user_name {
+        font-family: $RobotoMediumItalic;
+        font-size: 12px;
+    }
+}
+
+.chat_row_you {
+    align-items: flex-end;
+}
+
+.chat_row_they {
+    align-items: flex-start;
+}
