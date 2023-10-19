@@ -34,7 +34,7 @@ export default function RestrictAreaLayout({
   }
 
   function logout(): void {
-    router.replace("/signin");
+    router.replace("/");
   }
 
   const activeAdded = opened
