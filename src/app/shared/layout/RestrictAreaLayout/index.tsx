@@ -30,7 +30,7 @@ export default function RestrictAreaLayout({
   }
 
   function setActiveClass(path: string): string {
-    return currentRoute === `/${path}` ? styles.active_link : "";
+    return currentRoute.includes(path) ? styles.active_link : "";
   }
 
   function logout(): void {
