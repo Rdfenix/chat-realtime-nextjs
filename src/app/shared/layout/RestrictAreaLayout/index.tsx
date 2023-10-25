@@ -1,5 +1,4 @@
 "use client";
-
 import { ReactNode, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -47,7 +46,7 @@ export default function RestrictAreaLayout({
     <>
       <aside className={activeAdded}>
         <header className={styles.logo_content} onClick={() => toogleSideBar()}>
-          <Image width={60} height={60} src={logoIcon} alt="logo" />
+          <Image priority width={60} height={60} src={logoIcon} alt="logo" />
           <span>{headerText}</span>
         </header>
         <ul className={styles.nav_list}>
