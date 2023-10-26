@@ -6,3 +6,4 @@ export const API = axios.create({
 });
 
 export const signInUser = (data: SignIn) => API.post("/signin", data);
+export const getUser = (id: string) => API.get("/user", { params: { id } });

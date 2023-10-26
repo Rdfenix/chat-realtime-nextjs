@@ -1,6 +1,6 @@
 "use client";
-import { ReactNode, useState } from "react";
-import { useSelector } from "react-redux";
+import { ReactNode, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
@@ -14,6 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import logoIcon from "@/app/shared/icons/Let_s_Talk.png";
 import { StateReducer } from "../../interface/reduxInterface";
+import { getUserAction } from "@/app/core/action";
 
 interface RestrictAreaLayoutProps {
   children: ReactNode;
@@ -24,6 +25,7 @@ export default function RestrictAreaLayout({
 }: RestrictAreaLayoutProps) {
   const [opened, setOpened] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
   const currentRoute = usePathname();
   const userData = useSelector((state: StateReducer) => state.UserReducer);
 
@@ -44,6 +46,10 @@ export default function RestrictAreaLayout({
     : ` ${styles.sidebar}`;
 
   const headerText = opened ? "Close" : "Open";
+
+  useEffect(() => {
+    dispatch(getUserAction());
+  });
 
   return (
     <>
