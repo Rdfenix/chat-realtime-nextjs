@@ -1,10 +1,16 @@
 export interface SignIn {
-    user: string;
-    password: string;
+  username: string;
+  password: string;
 }
 
 export interface SignUp {
-    name: string;
-    user: string;
-    password: string;
+  _id?: string;
+  name: string;
+  username: string;
+  password: string;
+}
+export interface User {
+  _id?: string;
+  name: string;
+  username: string;
 }

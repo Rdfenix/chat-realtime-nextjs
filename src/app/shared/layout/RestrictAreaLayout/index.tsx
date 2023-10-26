@@ -1,5 +1,6 @@
 "use client";
 import { ReactNode, useState } from "react";
+import { useSelector } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
@@ -12,6 +13,7 @@ import {
   faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 import logoIcon from "@/app/shared/icons/Let_s_Talk.png";
+import { StateReducer } from "../../interface/reduxInterface";
 
 interface RestrictAreaLayoutProps {
   children: ReactNode;
@@ -23,6 +25,7 @@ export default function RestrictAreaLayout({
   const [opened, setOpened] = useState(false);
   const router = useRouter();
   const currentRoute = usePathname();
+  const userData = useSelector((state: StateReducer) => state.UserReducer);
 
   function toogleSideBar(): void {
     setOpened(!opened);
@@ -73,8 +76,8 @@ export default function RestrictAreaLayout({
                 fontSize={30}
               />
               <div className={styles.user_detail}>
-                <span>User</span>
-                <span>Login</span>
+                <span>{userData.name}</span>
+                <span>{userData.username}</span>
               </div>
             </div>
           </div>
