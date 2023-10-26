@@ -56,9 +56,9 @@ function* getUserData(action: getUserProps) {
   }
 }
 
-const signInSignUp = all([
+const signInSignUpSaga = all([
   takeLatest(SIGN_IN, getLogin),
   takeLatest(GET_USER, getUserData),
 ]);
 
-export default signInSignUp;
+export default signInSignUpSaga;

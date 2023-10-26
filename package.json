@@ -21,14 +21,18 @@
     "redux": "^4.2.1",
     "redux-saga": "^1.2.3",
     "sass": "^1.69.4",
-    "sharp": "^0.32.6"
+    "sharp": "^0.32.6",
+    "socket.io-client": "^4.7.2"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "bufferutil": "^4.0.8",
     "eslint": "^8",
     "eslint-config-next": "13.5.5",
-    "typescript": "^5"
+    "supports-color": "^9.4.0",
+    "typescript": "^5",
+    "utf-8-validate": "^5.0.10"
   }
 }

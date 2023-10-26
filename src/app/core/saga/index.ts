@@ -1,6 +1,8 @@
 import { all } from "redux-saga/effects";
-import signInSignUp from "./login";
+import signInSignUpSaga from "./login";
+import roomsSaga from "./room";
+import weboskcetSaga from "./weboskcet";
 
 export default function* rootSaga() {
-  yield all([signInSignUp]);
+  yield all([signInSignUpSaga, roomsSaga, weboskcetSaga]);
 }
