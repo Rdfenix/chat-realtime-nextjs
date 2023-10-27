@@ -1,11 +1,16 @@
 import { all, call, take, takeLatest } from "redux-saga/effects";
-import { WS_CONNECT } from "../../action/actionType";
+import { JOIN_ROOM, LEAVE_ROOM, WS_CONNECT } from "../../action/actionType";
 import { io } from "socket.io-client";
 import { EventChannel, eventChannel } from "redux-saga";
 
-function initWesocket(): EventChannel<any> {
-  const socket = io("http://localhost:3333");
+const socket = io("http://localhost:3333");
 
+type ActiionRoomProps = {
+  type: string;
+  room: string;
+};
+
+function initWesocket(): EventChannel<any> {
   return eventChannel((emitter) => {
     socket.on("connect", () => {
       console.log("a user connected");
@@ -40,6 +45,20 @@ function* handelWsConnection() {
   }
 }
 
-const weboskcetSaga = all([takeLatest(WS_CONNECT, handelWsConnection)]);
+function* userJoinRoom(action: ActiionRoomProps) {
+  const roomName = action.room;
+  yield socket.emit("joinRoom", roomName);
+}
+
+function* userLeaveRoom(action: ActiionRoomProps) {
+  const roomName = action.room;
+  yield socket.emit("leaveRoom", roomName);
+}
+
+const weboskcetSaga = all([
+  takeLatest(WS_CONNECT, handelWsConnection),
+  takeLatest(JOIN_ROOM, userJoinRoom),
+  takeLatest(LEAVE_ROOM, userLeaveRoom),
+]);
 
 export default weboskcetSaga;
