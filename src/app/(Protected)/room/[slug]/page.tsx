@@ -1,36 +1,54 @@
 "use client";
-import { ReactNode, useEffect } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import styles from "./index.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { User } from "@/app/shared/interface/login";
+import { ChatMessage } from "@/app/shared/interface/chat";
+import { useSelector } from "react-redux";
+import { StateReducer } from "@/app/shared/interface/reduxInterface";
 
-interface ChatroomProps {
-  children: ReactNode;
-}
+type ChatroomProps = {
+  user: User;
+  message: ChatMessage;
+};
 
-function TalkList() {
+type ChatProps = {
+  params: { slug: string };
+};
+
+function TalkList({ message, user }: ChatroomProps) {
   return (
     <>
-      <div className={styles.chat_row_you}>
-        <span className={styles.chat_user_name}>user name</span>
-        <div className={`${styles.conversation} ${styles.you}`}>
-          fdsafsdasdfdasfadsfdsa fdasfdafdsadafsa fdadfaafdasfadsfdasfdas dfdaf
-          fdadfafdafda
+      {user.username === message.username ? (
+        <div className={styles.chat_row_you}>
+          <span className={styles.chat_user_name}>{user.username}</span>
+          <div className={`${styles.conversation} ${styles.you}`}>
+            {message.message}
+          </div>
         </div>
-      </div>
-      <div className={styles.chat_row_they}>
-        <span className={styles.chat_user_name}>user name</span>
-        <div className={`${styles.conversation} ${styles.they}`}>
-          fdsafsdasdfdasfadsfdsa fdasfdafdsadafsa fdadfaafdasfadsfdasfdas dfdaf
-          fdadfafdafda
+      ) : (
+        <div className={styles.chat_row_they}>
+          <span className={styles.chat_user_name}>{message.username}</span>
+          <div className={`${styles.conversation} ${styles.they}`}>
+            {message.message}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
 
-export default function ChatRoom() {
+export default function ChatRoom(props: ChatProps) {
+  const user = useSelector((state: StateReducer) => state.UserReducer);
+  const room = useSelector((state: StateReducer) => state.RoomReducer?.rooms);
+  const roomMessage = useSelector(
+    (state: StateReducer) => state.RoomReducer?.messages
+  );
+  const chatId = props.params.slug;
+  const chatName = room.find((data) => data._id === chatId);
+
   useEffect(() => {
     return function cleanUp() {
       console.log("passei aqui no final");
@@ -43,10 +61,12 @@ export default function ChatRoom() {
         <Link href="/chat">
           <FontAwesomeIcon icon={faArrowLeft} />
         </Link>
-        <h1>Name of chat</h1>
+        <h1>{chatName?.title}</h1>
       </header>
       <div className={styles.chat_room_content}>
-        <TalkList />
+        {roomMessage[chatId]?.map((message) => (
+          <TalkList key={message._id} user={user} message={message} />
+        ))}
       </div>
       <footer className={styles.chat_room_footer}>
         <input

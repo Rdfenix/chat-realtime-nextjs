@@ -8,7 +8,7 @@ export interface ChatRoom {
 
 export interface ChatMessage {
   _id: string;
-  userName: string;
+  username: string;
   message: string;
 }
 
