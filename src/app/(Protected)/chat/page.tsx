@@ -5,9 +5,14 @@ import styles from "./index.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import { getChatRoomsAction } from "@/app/core/action";
+import {
+  createUserRoomAction,
+  getChatRoomsAction,
+  jointWithWebsocketRoom,
+} from "@/app/core/action";
 import { StateReducer } from "@/app/shared/interface/reduxInterface";
 import { ChatRoom } from "@/app/shared/interface/chat";
+import { User } from "@/app/shared/interface/login";
 
 interface ChatProps {
   chatTitle: string;
@@ -41,12 +46,13 @@ export default function Chat() {
 
   useEffect(() => {
     dispatch(getChatRoomsAction());
+    dispatch(jointWithWebsocketRoom("HALL"));
   }, [dispatch]);
 
   const rooms: ChatRoom[] = useSelector(
-    (state: StateReducer) => state.ChatRoomsReducer?.rooms
+    (state: StateReducer) => state.RoomReducer?.rooms
   );
-
+  const user: User = useSelector((state: StateReducer) => state.UserReducer);
   const counterRooms = rooms ? rooms.length : 0;
 
   function toggleArea() {
@@ -69,7 +75,9 @@ export default function Chat() {
   function createRoom() {
     if (chatName) {
       /** action to create chat room  */
-      console.log(chatName);
+      const data = { username: user.username, title: chatName };
+      dispatch(createUserRoomAction(data));
+      setChatName("");
     }
   }
 

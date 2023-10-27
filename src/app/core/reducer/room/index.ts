@@ -10,10 +10,9 @@ const RoomReducer = (
   const { type, payload } = action;
   switch (type) {
     case SET_CHAT_ROOMS:
-      const newState = { ...state, rooms: payload.rooms };
-      return newState;
+      return { ...state, rooms: payload.rooms };
     case SET_MESSAGE_ROOM:
-      return state;
+      return { ...state, messages: payload.messages };
     default:
       return state;
   }

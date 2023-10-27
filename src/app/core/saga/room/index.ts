@@ -1,8 +1,8 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { GET_CHAT_ROOMS } from "../../action/actionType";
+import { CREATE_ROOM, GET_CHAT_ROOMS } from "../../action/actionType";
 import { ChatRoom } from "@/app/shared/interface/chat";
 import { AxiosResponse } from "axios";
-import { getRooms } from "../../http";
+import { createRoom, getRooms } from "../../http";
 import { setChatRoomsAction } from "../../action";
 
 type getAllRoomProps = {
@@ -13,6 +13,11 @@ type getAllRoomProps = {
 type responseLoginProps = {
   rooms: ChatRoom[];
   message: string;
+};
+
+type roomProps = {
+  type: string;
+  payload: ChatRoom;
 };
 
 function* getAllRooms(action: getAllRoomProps) {
@@ -27,6 +32,18 @@ function* getAllRooms(action: getAllRoomProps) {
   }
 }
 
-const roomsSaga = all([takeLatest(GET_CHAT_ROOMS, getAllRooms)]);
+function* createUserRoom(action: roomProps) {
+  try {
+    const room = action.payload;
+    yield call(createRoom, room);
+  } catch (error: any) {
+    console.log(error);
+  }
+}
+
+const roomsSaga = all([
+  takeLatest(GET_CHAT_ROOMS, getAllRooms),
+  takeLatest(CREATE_ROOM, createUserRoom),
+]);
 
 export default roomsSaga;
