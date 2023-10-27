@@ -13,3 +13,5 @@ export const getUser = (id: string) => API.get("/user", { params: { id } });
 // room
 export const getRooms = () => API.get("/rooms");
 export const createRoom = (data: ChatRoom) => API.post("/create/room", data);
+export const deleteRoom = (_id: string) =>
+  API.delete("/delete/room", { params: { _id } });

@@ -7,6 +7,7 @@ import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import {
   createUserRoomAction,
+  deleteUserRoomAction,
   getChatRoomsAction,
   jointWithWebsocketRoom,
 } from "@/app/core/action";
@@ -20,8 +21,10 @@ interface ChatProps {
 }
 
 function ChatRoomCard({ chatTitle, chatId }: ChatProps) {
+  const dispatch = useDispatch();
+
   function deleteChat(data: string): void {
-    console.log(data);
+    dispatch(deleteUserRoomAction(data));
   }
   return (
     <Link href={`room/${chatId}`} className={styles.chat_room}>
