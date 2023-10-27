@@ -1,13 +1,15 @@
-import { all, call, put, takeLatest } from "redux-saga/effects";
+import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import {
   CREATE_ROOM,
   DELETE_ROOM,
   GET_CHAT_ROOMS,
+  GET_ROOM,
 } from "../../action/actionType";
-import { ChatRoom } from "@/app/shared/interface/chat";
+import { ChatRoom, Room } from "@/app/shared/interface/chat";
 import { AxiosResponse } from "axios";
-import { createRoom, deleteRoom, getRooms } from "../../http";
+import { createRoom, deleteRoom, getRoom, getRooms } from "../../http";
 import { setChatRoomsAction } from "../../action";
+import { StateReducer } from "@/app/shared/interface/reduxInterface";
 
 type getAllRoomProps = {
   type: string;
@@ -23,6 +25,8 @@ type roomProps = {
   type: string;
   payload: ChatRoom | string;
 };
+
+const getRoomState = (state: StateReducer) => state.RoomReducer;
 
 function* getAllRooms(action: getAllRoomProps) {
   try {
@@ -45,6 +49,21 @@ function* createUserRoom(action: roomProps) {
   }
 }
 
+function* getOneRoom(action: roomProps) {
+  try {
+    const id: string = action.payload as string;
+    const result: AxiosResponse<responseLoginProps> = yield call(getRoom, id);
+    if (result.status === 200) {
+      const roomState: Room = yield select(getRoomState);
+      const { rooms } = result.data;
+      const data = { ...roomState, rooms: [...roomState.rooms, rooms[0]] };
+      yield put(setChatRoomsAction(data));
+    }
+  } catch (error: any) {
+    console.log(error);
+  }
+}
+
 function* deleteUserRoom(action: roomProps) {
   try {
     const id: string = action.payload as string;
@@ -58,6 +77,7 @@ const roomsSaga = all([
   takeLatest(GET_CHAT_ROOMS, getAllRooms),
   takeLatest(CREATE_ROOM, createUserRoom),
   takeLatest(DELETE_ROOM, deleteUserRoom),
+  takeLatest(GET_ROOM, getOneRoom),
 ]);
 
 export default roomsSaga;

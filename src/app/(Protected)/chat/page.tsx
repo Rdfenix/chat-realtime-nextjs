@@ -123,7 +123,7 @@ export default function Chat() {
         {rooms?.map((room) => (
           <ChatRoomCard
             key={room._id}
-            chatTitle={room.title}
+            chatTitle={room?.title}
             chatId={room._id}
           />
         ))}

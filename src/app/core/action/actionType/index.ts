@@ -3,6 +3,7 @@ export const SIGN_UP = "SIGN_UP";
 export const LOGOUT = "LOGOUT";
 export const GET_USER = "GET_USER";
 export const SET_USER = "SET_USER";
+export const GET_ROOM = "GET_ROOM";
 export const GET_CHAT_ROOMS = "GET_CHAT_ROOMS";
 export const SET_CHAT_ROOMS = "SET_CHAT_ROOMS";
 export const CREATE_ROOM = "CREATE_ROOM";

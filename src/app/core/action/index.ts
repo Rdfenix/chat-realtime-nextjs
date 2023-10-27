@@ -2,6 +2,7 @@ import {
   CREATE_ROOM,
   DELETE_ROOM,
   GET_CHAT_ROOMS,
+  GET_ROOM,
   GET_USER,
   JOIN_ROOM,
   LOGOUT,
@@ -63,6 +64,11 @@ export const jointWithWebsocketRoom = (payload: string) => ({
 
 export const createUserRoomAction = (payload: ChatRoom) => ({
   type: CREATE_ROOM,
+  payload,
+});
+
+export const getOneRoomAction = (payload: string) => ({
+  type: GET_ROOM,
   payload,
 });
 

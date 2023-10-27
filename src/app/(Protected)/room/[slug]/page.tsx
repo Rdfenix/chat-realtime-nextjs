@@ -6,8 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { User } from "@/app/shared/interface/login";
 import { ChatMessage } from "@/app/shared/interface/chat";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StateReducer } from "@/app/shared/interface/reduxInterface";
+import { getOneRoomAction } from "@/app/core/action";
 
 type ChatroomProps = {
   user: User;
@@ -41,19 +42,18 @@ function TalkList({ message, user }: ChatroomProps) {
 }
 
 export default function ChatRoom(props: ChatProps) {
+  const dispatch = useDispatch();
   const user = useSelector((state: StateReducer) => state.UserReducer);
   const room = useSelector((state: StateReducer) => state.RoomReducer?.rooms);
   const roomMessage = useSelector(
     (state: StateReducer) => state.RoomReducer?.messages
   );
   const chatId = props.params.slug;
-  const chatName = room.find((data) => data._id === chatId);
+  const chatName = room.find((data) => data?._id === chatId);
 
   useEffect(() => {
-    return function cleanUp() {
-      console.log("passei aqui no final");
-    };
-  });
+    dispatch(getOneRoomAction(chatId));
+  }, [chatId, dispatch]);
 
   return (
     <section className={styles.chat_room_section}>
