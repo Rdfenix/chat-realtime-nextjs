@@ -1,9 +1,18 @@
 import { all, call, put, select, take, takeLatest } from "redux-saga/effects";
-import { JOIN_ROOM, LEAVE_ROOM, WS_CONNECT } from "../../action/actionType";
+import {
+  JOIN_ROOM,
+  LEAVE_ROOM,
+  SEND_WS_MESSAGE,
+  WS_CONNECT,
+} from "../../action/actionType";
 import { io } from "socket.io-client";
 import { EventChannel, eventChannel } from "redux-saga";
 import { StateReducer } from "@/app/shared/interface/reduxInterface";
-import { Room } from "@/app/shared/interface/chat";
+import {
+  ChatMessage,
+  ChatUserMessage,
+  Room,
+} from "@/app/shared/interface/chat";
 import { setChatRoomsAction, setMessagesAction } from "../../action";
 
 const socket = io("http://localhost:3333");
@@ -11,6 +20,11 @@ const socket = io("http://localhost:3333");
 type ActiionRoomProps = {
   type: string;
   payload: string;
+};
+
+type ActionRoomSendMessage = {
+  type: string;
+  payload: ChatUserMessage;
 };
 
 type ResponseWSMessage = {
@@ -64,17 +78,24 @@ function* dataCenterDistribution(message: ResponseWSMessage) {
     );
     yield put(setChatRoomsAction(result));
   } else {
-    const result = {
-      ...chatRooms,
-      messages: {
-        ...chatRooms.messages,
-        [message.room]: [...chatRooms.messages[message.room], message.data],
-      },
-    };
-
+    const result = addNewUserMessage(message.room, message.data, chatRooms);
     yield put(setMessagesAction(result));
   }
 }
+
+const addNewUserMessage = (room: string, data: ChatMessage, state: Room) => {
+  let newState: Room = { ...state };
+  newState = {
+    ...newState,
+    messages: {
+      ...newState.messages,
+      [room]: newState.messages[room]
+        ? [...newState.messages[room], data]
+        : [data],
+    },
+  };
+  return newState;
+};
 
 const addOrRemoveRoom = (operation: string, data: any, state: Room): Room => {
   let newState: Room = { ...state };
@@ -103,10 +124,17 @@ function* userLeaveRoom(action: ActiionRoomProps) {
   yield socket.emit("leaveRoom", roomName);
 }
 
+function* sendMessageToRoom(action: ActionRoomSendMessage) {
+  const { message, operation, room } = action.payload;
+  const data = { room, message, operation };
+  yield socket.emit("sendMessage", data);
+}
+
 const weboskcetSaga = all([
   takeLatest(WS_CONNECT, handelWsConnection),
   takeLatest(JOIN_ROOM, userJoinRoom),
   takeLatest(LEAVE_ROOM, userLeaveRoom),
+  takeLatest(SEND_WS_MESSAGE, sendMessageToRoom),
 ]);
 
 export default weboskcetSaga;

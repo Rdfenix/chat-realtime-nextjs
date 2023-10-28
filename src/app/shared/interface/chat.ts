@@ -7,12 +7,18 @@ export interface ChatRoom {
 }
 
 export interface ChatMessage {
-  _id: string;
+  _id?: string;
   username: string;
   message: string;
 }
 
 export interface Room {
-  rooms: ChatRoom[],
-  messages: Dictionary<ChatMessage[]>
+  rooms: ChatRoom[];
+  messages: Dictionary<ChatMessage[]>;
+}
+
+export interface ChatUserMessage {
+  room: string;
+  message: ChatMessage;
+  operation: string;
 }

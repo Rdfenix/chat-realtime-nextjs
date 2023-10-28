@@ -19,6 +19,13 @@
         justify-content: flex-start;
         align-items: center;
 
+        button {
+            background: transparent;
+            border: none;
+            display: flex;
+            cursor: pointer;
+        }
+
         a {
             text-decoration: none;
             color: $Black;

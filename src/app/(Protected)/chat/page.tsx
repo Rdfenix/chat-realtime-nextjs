@@ -120,9 +120,9 @@ export default function Chat() {
         </span>
       </div>
       <div className={styles.chat_wrapper}>
-        {rooms?.map((room) => (
+        {rooms?.map((room, index) => (
           <ChatRoomCard
-            key={room._id}
+            key={index.toString()}
             chatTitle={room?.title}
             chatId={room._id}
           />
