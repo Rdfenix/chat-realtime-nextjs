@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./index.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -49,6 +49,7 @@ function TalkList({ message, userDetail }: ChatroomProps) {
 
 export default function ChatRoom(props: ChatProps) {
   const [userMessage, setUserMessage] = useState("");
+  let elementRef: any = useRef();
   const dispatch = useDispatch();
   const router = useRouter();
   const user = useSelector((state: StateReducer) => state.UserReducer);
@@ -87,7 +88,7 @@ export default function ChatRoom(props: ChatProps) {
         </button>
         <h1>{chatName?.title}</h1>
       </header>
-      <div className={styles.chat_room_content}>
+      <div ref={elementRef} className={styles.chat_room_content}>
         {roomMessage[chatId]?.map((message, index) => (
           <TalkList
             key={index.toString()}

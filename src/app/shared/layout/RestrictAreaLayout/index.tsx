@@ -28,11 +28,21 @@ export default function RestrictAreaLayout({
   const dispatch = useDispatch();
   const currentRoute = usePathname();
   const userData = useSelector((state: StateReducer) => state.UserReducer);
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : "";
 
   useEffect(() => {
-    dispatch(getUserAction());
-    dispatch(connectWebsocketAction());
-  }, [dispatch]);
+    if (!token) {
+      router.push("/");
+    }
+  }, [router, token]);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(getUserAction());
+      dispatch(connectWebsocketAction());
+    }
+  }, [dispatch, token]);
 
   function toogleSideBar(): void {
     setOpened(!opened);
@@ -43,6 +53,7 @@ export default function RestrictAreaLayout({
   }
 
   function logout(): void {
+    localStorage.clear();
     router.push("/");
   }
 

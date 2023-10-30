@@ -15,7 +15,7 @@ import {
 } from "@/app/shared/interface/chat";
 import { setChatRoomsAction, setMessagesAction } from "../../action";
 
-const socket = io("http://localhost:3333");
+const socket = io("https://chat-realtime-backend-d23b27f94356.herokuapp.com");
 
 type ActiionRoomProps = {
   type: string;
