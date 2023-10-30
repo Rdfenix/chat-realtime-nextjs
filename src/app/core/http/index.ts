@@ -1,5 +1,5 @@
 import { ChatRoom } from "@/app/shared/interface/chat";
-import { SignIn } from "@/app/shared/interface/login";
+import { SignIn, SignUp } from "@/app/shared/interface/login";
 import axios from "axios";
 
 export const API = axios.create({
@@ -9,6 +9,9 @@ export const API = axios.create({
 //user - login
 export const signInUser = (data: SignIn) => API.post("/signin", data);
 export const getUser = (id: string) => API.get("/user", { params: { id } });
+
+//user - create
+export const createUser = (data: SignUp) => API.post("/create/user", data);
 
 // room
 export const getRooms = () => API.get("/rooms");

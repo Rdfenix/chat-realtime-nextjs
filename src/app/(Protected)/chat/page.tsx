@@ -18,9 +18,10 @@ import { User } from "@/app/shared/interface/login";
 interface ChatProps {
   chatTitle: string;
   chatId: any;
+  showDeleteButton: boolean;
 }
 
-function ChatRoomCard({ chatTitle, chatId }: ChatProps) {
+function ChatRoomCard({ chatTitle, chatId, showDeleteButton }: ChatProps) {
   const dispatch = useDispatch();
 
   function deleteChat(data: string): void {
@@ -29,15 +30,19 @@ function ChatRoomCard({ chatTitle, chatId }: ChatProps) {
   return (
     <Link href={`room/${chatId}`} className={styles.chat_room}>
       <span>{chatTitle}</span>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          deleteChat(chatId);
-        }}
-      >
-        <FontAwesomeIcon icon={faTrash} />
-      </button>
+      {showDeleteButton ? (
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            deleteChat(chatId);
+          }}
+        >
+          <FontAwesomeIcon icon={faTrash} />
+        </button>
+      ) : (
+        <></>
+      )}
     </Link>
   );
 }
@@ -125,6 +130,7 @@ export default function Chat() {
             key={index.toString()}
             chatTitle={room?.title}
             chatId={room._id}
+            showDeleteButton={room.username === user.username}
           />
         ))}
       </div>
