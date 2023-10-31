@@ -59,11 +59,16 @@ export default function ChatRoom(props: ChatProps) {
   );
   const chatId = props.params.slug;
   const chatName = room.find((data) => data?._id === chatId);
+  const messages = roomMessage[chatId];
 
   useEffect(() => {
     dispatch(getOneRoomAction(chatId));
     dispatch(jointWithWebsocketRoom(chatId));
   }, [chatId, dispatch]);
+
+  useEffect(() => {
+    elementRef.current.scrollTop = -elementRef.current.scrollHeight;
+  }, [messages]);
 
   function sendMessage() {
     if (userMessage) {
@@ -89,7 +94,7 @@ export default function ChatRoom(props: ChatProps) {
         <h1>{chatName?.title}</h1>
       </header>
       <div ref={elementRef} className={styles.chat_room_content}>
-        {roomMessage[chatId]?.map((message, index) => (
+        {messages?.map((message, index) => (
           <TalkList
             key={index.toString()}
             userDetail={user}
