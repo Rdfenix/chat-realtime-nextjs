@@ -2,6 +2,7 @@ import { all, call, put, select, take, takeLatest } from "redux-saga/effects";
 import {
   JOIN_ROOM,
   LEAVE_ROOM,
+  LOGOUT_WS,
   SEND_WS_MESSAGE,
   WS_CONNECT,
 } from "../../action/actionType";
@@ -130,11 +131,16 @@ function* sendMessageToRoom(action: ActionRoomSendMessage) {
   yield socket.emit("sendMessage", data);
 }
 
+function* disconnectWs() {
+  yield socket.disconnect();
+}
+
 const weboskcetSaga = all([
   takeLatest(WS_CONNECT, handelWsConnection),
   takeLatest(JOIN_ROOM, userJoinRoom),
   takeLatest(LEAVE_ROOM, userLeaveRoom),
   takeLatest(SEND_WS_MESSAGE, sendMessageToRoom),
+  takeLatest(LOGOUT_WS, disconnectWs),
 ]);
 
 export default weboskcetSaga;

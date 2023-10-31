@@ -14,7 +14,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import logoIcon from "@/app/shared/icons/Let_s_Talk.png";
 import { StateReducer } from "../../interface/reduxInterface";
-import { connectWebsocketAction, getUserAction } from "@/app/core/action";
+import {
+  connectWebsocketAction,
+  getUserAction,
+  logoutWSAction,
+  resetChatAction,
+} from "@/app/core/action";
 
 interface RestrictAreaLayoutProps {
   children: ReactNode;
@@ -54,6 +59,8 @@ export default function RestrictAreaLayout({
 
   function logout(): void {
     localStorage.clear();
+    dispatch(logoutWSAction());
+    dispatch(resetChatAction());
     router.push("/");
   }
 

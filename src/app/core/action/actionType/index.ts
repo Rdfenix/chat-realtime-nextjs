@@ -14,3 +14,4 @@ export const WS_CONNECT = "WS_CONNECT";
 export const JOIN_ROOM = "JOIN_ROOM";
 export const LEAVE_ROOM = "LEAVE_ROOM";
 export const SEND_WS_MESSAGE = "SEND_WS_MESSAGE";
+export const LOGOUT_WS = "LOGOUT_WS";

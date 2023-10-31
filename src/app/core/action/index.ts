@@ -7,6 +7,7 @@ import {
   JOIN_ROOM,
   LEAVE_ROOM,
   LOGOUT,
+  LOGOUT_WS,
   RESET_ROOM,
   SEND_WS_MESSAGE,
   SET_CHAT_ROOMS,
@@ -92,4 +93,8 @@ export const leaveRoomAction = (payload: string) => ({
 
 export const resetChatAction = () => ({
   type: RESET_ROOM,
+});
+
+export const logoutWSAction = () => ({
+  type: LOGOUT_WS,
 });
