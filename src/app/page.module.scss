@@ -1,17 +1,17 @@
-@import "../app/styles/components/pageDefault";
-@import "../app/styles/components/card";
-@import "../app/styles/abstracts/variables";
+@use "../app/styles/components/pageDefault";
+@use "../app/styles/components/card";
+@use "../app/styles/abstracts/variables";
 
 .home_section {
-  @include pageDefaultStyle;
+  @include pageDefault.pageDefaultStyle;
   justify-content: center;
   align-items: center;
-  background-color: $DodgeBlue;
+  background-color: variables.$DodgeBlue;
   flex-direction: column;
 
   a {
     text-decoration: none;
-    color: $White;
+    color: variables.$White;
   }
 
   img {

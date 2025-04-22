@@ -1,5 +1,5 @@
-@import "../styles/abstracts/fonts";
-@import "../styles/abstracts/variables";
+@use "../styles/abstracts/fonts";
+@use "../styles/abstracts/variables";
 
 * {
   margin: 0;
@@ -13,7 +13,7 @@ body,
 #root {
   width: 100%;
   height: 100vh;
-  font-family: $Roboto;
+  font-family: variables.$Roboto;
   position: relative;
   overflow: hidden;
 }
