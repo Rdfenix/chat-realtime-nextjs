@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signinAction } from "@/app/core/action";
 
 function LoginForm() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const [signInData, setSignInData] = useState({ username: "", password: "" });
 
   function settingCredentials(data: string, field: string): void {
@@ -43,7 +43,13 @@ function LoginForm() {
       </form>
       <footer className={styles.login_footer}>
         <div className={styles.button_area}>
-          <button className={styles.submit_button} onClick={() => signInUser()}>
+          <button
+            className={styles.submit_button}
+            onClick={(e) => {
+              e.preventDefault();
+              signInUser();
+            }}
+          >
             Submit
           </button>
         </div>

@@ -28,7 +28,7 @@ type roomProps = {
 
 const getRoomState = (state: StateReducer) => state.RoomReducer;
 
-function* getAllRooms(action: getAllRoomProps) {
+function* getAllRooms() {
   try {
     const result: AxiosResponse<responseLoginProps> = yield call(getRooms);
     if (result.status === 200) {

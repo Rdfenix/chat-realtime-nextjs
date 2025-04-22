@@ -47,7 +47,7 @@ function* getLogin(action: loginProps) {
   }
 }
 
-function* getUserData(action: getUserProps) {
+function* getUserData() {
   try {
     const userId = String(localStorage.getItem("token"));
     const response: AxiosResponse<responseLoginProps> = yield call(

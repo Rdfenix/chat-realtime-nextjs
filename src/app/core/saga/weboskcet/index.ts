@@ -18,7 +18,7 @@ import { setChatRoomsAction, setMessagesAction } from "../../action";
 
 const socket = io("https://chat-realtime-backend-d23b27f94356.herokuapp.com");
 
-type ActiionRoomProps = {
+type ActionRoomProps = {
   type: string;
   payload: string;
 };
@@ -36,7 +36,7 @@ type ResponseWSMessage = {
 
 const roomState = (state: StateReducer) => state.RoomReducer;
 
-const initWesocket = (): EventChannel<any> =>
+const initWebsocket = (): EventChannel<any> =>
   eventChannel((emitter) => {
     socket.on("connect", () => {
       console.log("a user connected");
@@ -56,9 +56,9 @@ const initWesocket = (): EventChannel<any> =>
     };
   });
 
-function* handelWsConnection() {
+function* handleWsConnection() {
   try {
-    const channel: EventChannel<any> = yield call(initWesocket);
+    const channel: EventChannel<any> = yield call(initWebsocket);
 
     while (true) {
       const action: ResponseWSMessage = yield take(channel);
@@ -115,12 +115,12 @@ const addOrRemoveRoom = (operation: string, data: any, state: Room): Room => {
   return newState;
 };
 
-function* userJoinRoom(action: ActiionRoomProps) {
+function* userJoinRoom(action: ActionRoomProps) {
   const roomName = action.payload;
   yield socket.emit("joinRoom", roomName);
 }
 
-function* userLeaveRoom(action: ActiionRoomProps) {
+function* userLeaveRoom(action: ActionRoomProps) {
   const roomName = action.payload;
   yield socket.emit("leaveRoom", roomName);
 }
@@ -136,7 +136,7 @@ function* disconnectWs() {
 }
 
 const weboskcetSaga = all([
-  takeLatest(WS_CONNECT, handelWsConnection),
+  takeLatest(WS_CONNECT, handleWsConnection),
   takeLatest(JOIN_ROOM, userJoinRoom),
   takeLatest(LEAVE_ROOM, userLeaveRoom),
   takeLatest(SEND_WS_MESSAGE, sendMessageToRoom),

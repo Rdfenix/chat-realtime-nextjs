@@ -4,7 +4,7 @@ import styles from "./login-layout.module.scss";
 import { useRouter } from "next/navigation";
 
 interface SignInSignOutLayoutProps {
-  children: ReactNode;
+  readonly children: ReactNode;
 }
 
 function SignInSignOutLayout({ children }: SignInSignOutLayoutProps) {

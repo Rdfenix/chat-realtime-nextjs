@@ -20,9 +20,10 @@ import {
   logoutWSAction,
   resetChatAction,
 } from "@/app/core/action";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 interface RestrictAreaLayoutProps {
-  children: ReactNode;
+  readonly children: ReactNode;
 }
 
 export default function RestrictAreaLayout({
@@ -73,20 +74,29 @@ export default function RestrictAreaLayout({
   return (
     <>
       <aside className={activeAdded}>
-        <header className={styles.logo_content} onClick={() => toogleSideBar()}>
+        <button
+          className={styles.logo_content}
+          onClick={() => toogleSideBar()}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              toogleSideBar();
+            }
+          }}
+          tabIndex={0}
+        >
           <Image priority width={60} height={60} src={logoIcon} alt="logo" />
           <span>{headerText}</span>
-        </header>
+        </button>
         <ul className={styles.nav_list}>
           <li>
             <Link className={setActiveClass("chat")} href="/chat">
-              <FontAwesomeIcon icon={faComment} inverse />
+              <FontAwesomeIcon icon={faComment as IconProp} inverse />
               <span className={styles.link_name}>Chats</span>
             </Link>
           </li>
           <li>
             <Link className={setActiveClass("main")} href="/main">
-              <FontAwesomeIcon icon={faHouse} inverse />
+              <FontAwesomeIcon icon={faHouse as IconProp} inverse />
               <span className={styles.link_name}>Home</span>
             </Link>
           </li>
@@ -96,7 +106,7 @@ export default function RestrictAreaLayout({
             <div className={styles.profile_details}>
               <FontAwesomeIcon
                 className={styles.user_icon}
-                icon={faCircleUser}
+                icon={faCircleUser as IconProp}
                 inverse
                 fontSize={30}
               />
@@ -108,7 +118,7 @@ export default function RestrictAreaLayout({
           </div>
           <div className={styles.logout}>
             <button className={styles.logout_button} onClick={() => logout()}>
-              <FontAwesomeIcon icon={faDoorOpen} inverse fontSize={20} />
+              <FontAwesomeIcon icon={faDoorOpen as IconProp} inverse fontSize={20} />
             </button>
           </div>
         </div>

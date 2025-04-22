@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import { store } from "@/app/core/store";
 
 interface ProvideProps {
-  children: ReactNode;
+  readonly children: ReactNode;
 }
 
 export default function Provide({ children }: ProvideProps) {

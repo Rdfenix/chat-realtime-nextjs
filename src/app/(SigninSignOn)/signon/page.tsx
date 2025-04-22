@@ -57,6 +57,7 @@ function RegisterForm() {
       <footer className={styles.register_footer}>
         <div className={styles.button_area}>
           <button
+            type="button"
             className={styles.sign_up_button}
             onClick={() => signInUser()}
           >
