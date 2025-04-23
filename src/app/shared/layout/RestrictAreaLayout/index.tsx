@@ -111,8 +111,8 @@ export default function RestrictAreaLayout({
                 fontSize={30}
               />
               <div className={styles.user_detail}>
-                <span>{userData.name}</span>
-                <span>{userData.username}</span>
+                <span>{userData?.name}</span>
+                <span>{userData?.username}</span>
               </div>
             </div>
           </div>

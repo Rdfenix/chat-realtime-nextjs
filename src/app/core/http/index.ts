@@ -3,7 +3,7 @@ import { SignIn, SignUp } from "@/app/shared/interface/login";
 import axios from "axios";
 
 export const API = axios.create({
-  baseURL: "https://chat-realtime-backend-d23b27f94356.herokuapp.com",
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 //user - login
