@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import styles from "./index.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -16,13 +16,13 @@ import {
 } from "@/app/core/action";
 import { useRouter } from "next/navigation";
 
-type ChatroomProps = {
+type ChatroomProps = Readonly<{
   userDetail: User;
   message: ChatMessage;
-};
+}>;
 
 type ChatProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 function TalkList({ message, userDetail }: ChatroomProps) {
@@ -47,17 +47,20 @@ function TalkList({ message, userDetail }: ChatroomProps) {
   );
 }
 
-export default function ChatRoom(props: ChatProps) {
+export default function ChatRoom(props: Readonly<ChatProps>) {
   const [userMessage, setUserMessage] = useState("");
+
   let elementRef: any = useRef();
   const dispatch = useDispatch();
   const router = useRouter();
+
   const user = useSelector((state: StateReducer) => state.UserReducer);
   const room = useSelector((state: StateReducer) => state.RoomReducer?.rooms);
   const roomMessage = useSelector(
     (state: StateReducer) => state.RoomReducer?.messages
   );
-  const chatId = props.params.slug;
+  
+  const { slug: chatId } = use(props.params);
   const chatName = room.find((data) => data?._id === chatId);
   const messages = roomMessage[chatId];
 

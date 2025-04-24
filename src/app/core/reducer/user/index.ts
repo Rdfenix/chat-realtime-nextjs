@@ -8,11 +8,10 @@ const UserReducer = (
   action: { payload: User; type: string }
 ) => {
   const { type, payload } = action;
-  switch (type) {
-    case SET_USER:
-      return payload;
-    default:
-      return state;
+  if (type === SET_USER) {
+    return { ...state, ...payload };
+  } else {
+    return state;
   }
 };
 

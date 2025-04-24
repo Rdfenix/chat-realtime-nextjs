@@ -16,9 +16,9 @@ import { ChatRoom } from "@/app/shared/interface/chat";
 import { User } from "@/app/shared/interface/login";
 
 interface ChatProps {
-  chatTitle: string;
-  chatId: any;
-  showDeleteButton: boolean;
+  readonly chatTitle: string;
+  readonly chatId: any;
+  readonly showDeleteButton: boolean;
 }
 
 function ChatRoomCard({ chatTitle, chatId, showDeleteButton }: ChatProps) {

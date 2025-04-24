@@ -20,6 +20,9 @@ $widthActiveContent: 140px;
         justify-content: center;
         width: 100%;
         flex-direction: column;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
 
         span {
             font-family: $RobotoItalic;
