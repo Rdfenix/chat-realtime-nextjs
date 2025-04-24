@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import RestrictAreaLayout from "../shared/layout/RestrictAreaLayout";
 
 interface MainLayoutProps {
-  children: ReactNode;
+  readonly children: ReactNode;
 }
 
 function MainLayout({ children }: MainLayoutProps) {

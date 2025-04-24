@@ -5,8 +5,8 @@ import logo from "@/app/shared/icons/Let_s_Talk.png";
 import styles from "./index.module.scss";
 
 interface FormSigninSignOnLayoutProps {
-  children: ReactNode;
-  titleHeader: string;
+  readonly children: ReactNode;
+  readonly titleHeader: string;
 }
 
 export default function FormSigninSignOnLayout({
